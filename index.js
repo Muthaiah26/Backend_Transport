@@ -204,6 +204,14 @@ app.post("/start", (req, res) => {
   times = parseInt(loctimes || "0", 10);
   interval = parseInt(locinterval || "60000", 10); // default 1 min
 
+  //on sunday do not run
+  const today = new Date();
+  if (today.getDay() === 0) {
+    return res.send("Not running on Sundays");
+  }
+
+  console.log(`Starting location fetching for ${times} times at interval of ${interval/60000} minutes.`);
+
   if (timer) {
     return res.send("Already running");
   }
@@ -212,6 +220,11 @@ app.post("/start", (req, res) => {
 
   main();
 
+});
+
+app.get("/stop", async (req, res) => {
+  await stopFetching();
+  res.send("Location fetching stopped");
 });
 
 
