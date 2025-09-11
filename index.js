@@ -240,4 +240,10 @@ app.post("/nearbyfeature", async (req, res) => {
   res.json({ message: `Nearby features for bus ${busNo} at (${lat}, ${lon})`, features: [] });
 });
 
+app.get("/busstarted", (req, res) => {
+  const {busNo}=req.query;
+  console.log(`Bus ${busNo} has started its journey.`);
+  res.send(`Bus ${busNo} start acknowledged`);
+});
+
 app.listen(port, () => console.log(`Server running on port ${port}`));
