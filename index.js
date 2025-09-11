@@ -228,4 +228,16 @@ app.get("/stop", async (req, res) => {
 });
 
 
+app.post("/nearbyfeature", async (req, res) => {
+  const { busNo, lat, lon } = req.body;
+
+  if (!busNo || !lat || !lon) {
+    return res.status(400).send("Missing bus number, latitude or longitude");
+  }
+
+  console.log(`Finding nearby features for bus ${busNo} at (${lat}, ${lon})`);
+
+  res.json({ message: `Nearby features for bus ${busNo} at (${lat}, ${lon})`, features: [] });
+});
+
 app.listen(port, () => console.log(`Server running on port ${port}`));
